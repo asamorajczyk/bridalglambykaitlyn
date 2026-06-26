@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services | Bridal Glam by Kaitlyn</title>
   <meta name="description" content="Hair and makeup services by Kaitlyn Magnuson — bridal, prom, and special events in Northern Colorado." />
+  <link rel="icon" href="../images/favicon.jpg" type="image/jpeg" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
     .page-hero {
@@ -167,8 +168,8 @@
     <!-- BRIDAL -->
     <div class="service-block">
       <div class="service-block-image">
-        <div class="service-block-placeholder">Bridal photo here</div>
-        <!-- <img src="../images/service-bridal.jpg" alt="Bridal hair and makeup" /> -->
+        <div class="service-block-placeholder" id="service-bridal-ph">Bridal photo here</div>
+        <img id="service-bridal-img" src="" alt="Bridal hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Most Popular</span>
@@ -192,7 +193,8 @@
     <!-- BRIDAL PARTY -->
     <div class="service-block reverse">
       <div class="service-block-image">
-        <div class="service-block-placeholder">Bridal party photo here</div>
+        <div class="service-block-placeholder" id="service-party-ph">Bridal party photo here</div>
+        <img id="service-party-img" src="" alt="Bridal party hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Groups Welcome</span>
@@ -214,7 +216,8 @@
     <!-- PROM -->
     <div class="service-block">
       <div class="service-block-image">
-        <div class="service-block-placeholder">Prom photo here</div>
+        <div class="service-block-placeholder" id="service-prom-ph">Prom photo here</div>
+        <img id="service-prom-img" src="" alt="Prom hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Prom &amp; Formal</span>
@@ -233,7 +236,8 @@
     <!-- OCCASIONS -->
     <div class="service-block reverse">
       <div class="service-block-image">
-        <div class="service-block-placeholder">Special occasion photo</div>
+        <div class="service-block-placeholder" id="service-events-ph">Special occasion photo</div>
+        <img id="service-events-img" src="" alt="Special events hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Any Occasion</span>
@@ -299,5 +303,11 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    loadPhotoByRef('services_bridal', '1axFxasUIxzBeqbsDrXTuYlbPu_oO7KHo', 'service-bridal-img', 'service-bridal-ph', 1200);
+    loadPhotoByRef('services_party',  '1axFxasUIxzBeqbsDrXTuYlbPu_oO7KHo', 'service-party-img',  'service-party-ph',  1200);
+    loadPhotoByRef('services_prom',   '120Xm5fybA8_B44H6i2XLJJM2U_UXG9xp', 'service-prom-img',   'service-prom-ph',   1200);
+    loadPhotoByRef('services_events', '1qYKpS7zQyNIuWTAj1z-HJgNmpkBpz9nv', 'service-events-img', 'service-events-ph', 1200);
+  </script>
 </body>
 </html>

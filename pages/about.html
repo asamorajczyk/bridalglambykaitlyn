@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Kaitlyn | Bridal Glam by Kaitlyn</title>
   <meta name="description" content="Meet Kaitlyn Magnuson — bridal hairstylist and makeup artist serving Northern Colorado." />
+  <link rel="icon" href="../images/favicon.jpg" type="image/jpeg" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
     .page-hero {
@@ -251,24 +252,7 @@
 
   <script src="../js/main.js"></script>
   <script>
-    (async () => {
-      const FOLDER_ID = '14P6jz4Dkh1AahYhZRw62655lzQelnGNH';
-      const API_KEY   = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
-      try {
-        const q = encodeURIComponent(`'${FOLDER_ID}' in parents and trashed = false`);
-        const res = await fetch(
-          `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink,name)&pageSize=10&key=${API_KEY}`
-        );
-        const { files } = await res.json();
-        const photo = files?.find(f => f.thumbnailLink);
-        if (photo) {
-          const img = document.getElementById('about-photo-img');
-          img.src = photo.thumbnailLink.replace(/=s\d+$/, '=s1200');
-          img.style.display = 'block';
-          document.getElementById('about-photo-placeholder').style.display = 'none';
-        }
-      } catch (e) { console.error('About photo load failed', e); }
-    })();
+    loadPhotoByRef('about_portrait', '14P6jz4Dkh1AahYhZRw62655lzQelnGNH', 'about-photo-img', 'about-photo-placeholder', 1200);
   </script>
 </body>
 </html>

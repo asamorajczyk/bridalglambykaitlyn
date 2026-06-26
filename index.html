@@ -6,7 +6,7 @@
   <title>Bridal Glam by Kaitlyn | Hair & Makeup Artist — Northern Colorado</title>
   <meta name="description" content="Kaitlyn Magnuson is a bridal hairstylist and makeup artist serving Loveland, Fort Collins, Greeley & Kersey, CO. Specializing in weddings, prom, and special events." />
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <link rel="icon" href="images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 
@@ -239,31 +239,9 @@
 
   <script src="js/main.js"></script>
   <script>
-    (async () => {
-      const FOLDER_ID = '14P6jz4Dkh1AahYhZRw62655lzQelnGNH';
-      const API_KEY   = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
-      try {
-        const q = encodeURIComponent(`'${FOLDER_ID}' in parents and trashed = false`);
-        const res = await fetch(
-          `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink,name)&pageSize=10&key=${API_KEY}`
-        );
-        const { files } = await res.json();
-        const photos = files?.filter(f => f.thumbnailLink) || [];
-
-        if (photos[1]) {
-          const hero = document.getElementById('hero-photo-img');
-          hero.src = photos[1].thumbnailLink.replace(/=s\d+$/, '=s1600');
-          hero.style.display = 'block';
-          document.getElementById('hero-photo-placeholder').style.display = 'none';
-        }
-        if (photos[2]) {
-          const about = document.getElementById('about-photo-img');
-          about.src = photos[2].thumbnailLink.replace(/=s\d+$/, '=s1200');
-          about.style.display = 'block';
-          document.getElementById('about-photo-placeholder').style.display = 'none';
-        }
-      } catch (e) { console.error('Home photos load failed', e); }
-    })();
+    const _ABOUTME = '14P6jz4Dkh1AahYhZRw62655lzQelnGNH';
+    loadPhotoByRef('home_hero',  _ABOUTME, 'hero-photo-img',  'hero-photo-placeholder',  1600);
+    loadPhotoByRef('home_strip', _ABOUTME, 'about-photo-img', 'about-photo-placeholder', 1200);
   </script>
 </body>
 </html>

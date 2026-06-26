@@ -1,8 +1,10 @@
+const _DRIVE_API = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
+
 // ── LOGO FROM DRIVE ──
 (async () => {
   try {
     const FOLDER_ID = '1J5ZeboobsRd_d6NYk3zaNPQDV3nAoQcX';
-    const API_KEY   = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
+    const API_KEY   = _DRIVE_API;
     const q = encodeURIComponent(`'${FOLDER_ID}' in parents and trashed = false`);
     const res = await fetch(
       `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink,name)&pageSize=5&key=${API_KEY}`
@@ -63,7 +65,39 @@ function closeLightbox() {
 }
 
 // ── CONTACT FORM ──
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcrKPd4kGw4MoE0IY5VerOpGqqd1CfKdUkJDs1MywOcdTShKbQJ32ssuh3MRG53ltb/exec'; // ← paste after deploying
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcrKPd4kGw4MoE0IY5VerOpGqqd1CfKdUkJDs1MywOcdTShKbQJ32ssuh3MRG53ltb/exec';
+
+// ── PHOTO REF LOADER ──
+// Fetches the Photo References sheet once, then finds a specific file by name in a Drive folder.
+// key: matches a row key returned by doGet?action=refs in the Apps Script
+let _refsPromise = null;
+function _fetchRefs() {
+  if (!_refsPromise) {
+    _refsPromise = fetch(APPS_SCRIPT_URL + '?action=refs')
+      .then(r => r.json())
+      .catch(() => ({}));
+  }
+  return _refsPromise;
+}
+
+async function loadPhotoByRef(key, folderId, imgId, phId, size) {
+  try {
+    const refs = await _fetchRefs();
+    const fileName = refs[key];
+    if (!fileName) return;
+    const q = encodeURIComponent(`'${folderId}' in parents and name='${fileName}' and trashed=false`);
+    const { files } = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink)&pageSize=1&key=${_DRIVE_API}`
+    ).then(r => r.json());
+    const thumb = files?.[0]?.thumbnailLink;
+    if (!thumb) return;
+    const img = document.getElementById(imgId);
+    if (!img) return;
+    img.src = thumb.replace(/=s\d+$/, '=s' + size);
+    img.style.display = 'block';
+    document.getElementById(phId)?.style.setProperty('display', 'none');
+  } catch(e) { console.error('Photo load failed:', key, e); }
+}
 
 const form = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
