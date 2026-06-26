@@ -43,14 +43,25 @@ function closeLightbox() {
 }
 
 // ── CONTACT FORM ──
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcrKPd4kGw4MoE0IY5VerOpGqqd1CfKdUkJDs1MywOcdTShKbQJ32ssuh3MRG53ltb/exec'; // ← paste after deploying
+
 const form = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
 
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
-  // Replace with Formspree or Netlify Forms action when deploying
-  form.style.display = 'none';
-  if (success) success.style.display = 'block';
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: new URLSearchParams(new FormData(form))
+  }).finally(() => {
+    form.style.display = 'none';
+    if (success) success.style.display = 'block';
+  });
 });
 
 // ── SCROLL REVEAL ──
