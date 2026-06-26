@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | Bridal Glam by Kaitlyn</title>
+  <meta name="description" content="Hair and makeup services by Kaitlyn Magnuson — bridal, prom, and special events in Northern Colorado." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .page-hero {
+      margin-top: var(--nav-h);
+      background: var(--blush);
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); color: var(--black); margin-bottom: 16px; }
+    .page-hero p { color: var(--mid-gray); font-size: 1rem; max-width: 480px; margin: 0 auto; }
+
+    .services-full {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-pad);
+    }
+
+    .service-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rose);
+    }
+    .service-block:last-child { border-bottom: none; }
+    .service-block.reverse { direction: rtl; }
+    .service-block.reverse > * { direction: ltr; }
+
+    .service-block-image {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--blush);
+    }
+    .service-block-image img { width: 100%; height: 100%; object-fit: cover; }
+    .service-block-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--blush), var(--rose));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dusty-rose);
+      font-family: var(--font-display);
+      font-style: italic;
+      min-height: 300px;
+    }
+
+    .service-block-content h2 { font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--black); margin-bottom: 16px; }
+    .service-block-content p { color: var(--mid-gray); line-height: 1.9; font-size: 0.93rem; margin-bottom: 24px; }
+
+    .service-includes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .service-includes li {
+      font-size: 0.85rem;
+      color: var(--soft-black);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .service-includes li::before {
+      content: '✦';
+      color: var(--dusty-rose);
+      font-size: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .pricing-note {
+      background: var(--blush);
+      border-left: 3px solid var(--dusty-rose);
+      padding: 16px 20px;
+      font-size: 0.83rem;
+      color: var(--soft-black);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .add-ons {
+      background: var(--black);
+      padding: var(--section-pad);
+      text-align: center;
+    }
+    .add-ons h2 { color: var(--white); font-size: clamp(1.8rem,3vw,2.6rem); margin-bottom: 16px; }
+    .add-ons .eyebrow { color: var(--rose); }
+    .add-ons p { color: rgba(255,255,255,0.5); margin-bottom: 48px; font-size: 0.92rem; }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+    }
+    .addon-item {
+      background: var(--black);
+      padding: 36px 24px;
+      text-align: center;
+    }
+    .addon-item span { font-size: 1.6rem; display: block; margin-bottom: 12px; }
+    .addon-item h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .addon-item p { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin: 0; }
+
+    .booking-cta {
+      background: var(--dusty-rose);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .booking-cta h2 { color: white; font-size: clamp(1.8rem,3vw,2.6rem); margin-bottom: 16px; }
+    .booking-cta p { color: rgba(255,255,255,0.8); margin-bottom: 36px; font-size: 0.93rem; }
+
+    @media (max-width: 768px) {
+      .service-block { grid-template-columns: 1fr; gap: 32px; direction: ltr !important; }
+      .addons-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .addons-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-book"><a href="contact.html" class="btn btn-rose">Book Now</a></div>
+    <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-rose" style="margin-top:8px;">Book Now</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow">What I Offer</span>
+    <h1>Services</h1>
+    <p>Every look is custom — built around you, your event, and the vision you have in mind.</p>
+  </div>
+
+  <div class="services-full">
+
+    <!-- BRIDAL -->
+    <div class="service-block">
+      <div class="service-block-image">
+        <div class="service-block-placeholder">Bridal photo here</div>
+        <!-- <img src="../images/service-bridal.jpg" alt="Bridal hair and makeup" /> -->
+      </div>
+      <div class="service-block-content">
+        <span class="eyebrow">Most Popular</span>
+        <h2>Bridal Hair &amp; Makeup</h2>
+        <p>Your wedding day deserves a look as timeless as the moment itself. I work with you from the very start — including a trial run — to make sure you feel absolutely yourself, beautifully elevated.</p>
+        <ul class="service-includes">
+          <li>One-on-one bridal consultation</li>
+          <li>Hair trial session</li>
+          <li>Makeup trial session</li>
+          <li>Wedding day hair styling</li>
+          <li>Wedding day full makeup application</li>
+          <li>Touch-up kit to go</li>
+        </ul>
+        <div class="pricing-note">
+          💌 Pricing is customized based on location, party size, and services. Contact me for a personalized quote.
+        </div>
+        <a href="contact.html" class="btn btn-rose" style="margin-top:28px;">Inquire About Bridal</a>
+      </div>
+    </div>
+
+    <!-- BRIDAL PARTY -->
+    <div class="service-block reverse">
+      <div class="service-block-image">
+        <div class="service-block-placeholder">Bridal party photo here</div>
+      </div>
+      <div class="service-block-content">
+        <span class="eyebrow">Groups Welcome</span>
+        <h2>Bridal Party Glam</h2>
+        <p>From maids of honor to flower girls, I'll keep the whole crew looking cohesive and gorgeous. Getting ready together is half the fun — let me make it stress-free and beautiful.</p>
+        <ul class="service-includes">
+          <li>Hair styling per person</li>
+          <li>Makeup application per person</li>
+          <li>Coordinated looks that complement the bride</li>
+          <li>Relaxed, fun getting-ready experience</li>
+        </ul>
+        <div class="pricing-note">
+          💌 Group rates available. Reach out with your party size for a custom quote.
+        </div>
+        <a href="contact.html" class="btn" style="margin-top:28px;">Get a Group Quote</a>
+      </div>
+    </div>
+
+    <!-- PROM -->
+    <div class="service-block">
+      <div class="service-block-image">
+        <div class="service-block-placeholder">Prom photo here</div>
+      </div>
+      <div class="service-block-content">
+        <span class="eyebrow">Prom &amp; Formal</span>
+        <h2>Prom &amp; Special Events</h2>
+        <p>Prom is a big deal — you deserve to feel like it. Whether you want soft and glowy or bold and dramatic, I'll create a look that photographs beautifully and lasts all night.</p>
+        <ul class="service-includes">
+          <li>Hair styling (updo, half-up, or down)</li>
+          <li>Full makeup application</li>
+          <li>Long-wear, photo-ready finish</li>
+          <li>Available for homecoming, pageants &amp; more</li>
+        </ul>
+        <a href="contact.html" class="btn btn-rose" style="margin-top:28px;">Book Prom Glam</a>
+      </div>
+    </div>
+
+    <!-- OCCASIONS -->
+    <div class="service-block reverse">
+      <div class="service-block-image">
+        <div class="service-block-placeholder">Special occasion photo</div>
+      </div>
+      <div class="service-block-content">
+        <span class="eyebrow">Any Occasion</span>
+        <h2>Special Events</h2>
+        <p>Engagement shoots, anniversary dinners, graduation photos, quinceañeras, galas — if it's a moment worth remembering, it's worth looking your best for.</p>
+        <ul class="service-includes">
+          <li>Hair styling</li>
+          <li>Makeup application</li>
+          <li>Fully customized to your event &amp; vibe</li>
+        </ul>
+        <a href="contact.html" class="btn" style="margin-top:28px;">Check Availability</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ADD-ONS -->
+  <section class="add-ons">
+    <span class="eyebrow">Extras</span>
+    <h2>Add-Ons</h2>
+    <p>Customize your appointment with these popular add-ons.</p>
+    <div class="addons-grid">
+      <div class="addon-item">
+        <span>👁️</span>
+        <h4>Lash Application</h4>
+        <p>Strip or individual lashes applied for extra drama</p>
+      </div>
+      <div class="addon-item">
+        <span>💎</span>
+        <h4>Hair Accessories</h4>
+        <p>Pins, clips, veils, and florals styled in</p>
+      </div>
+      <div class="addon-item">
+        <span>🌿</span>
+        <h4>Fresh Florals</h4>
+        <p>Real flowers incorporated into your hair style</p>
+      </div>
+      <div class="addon-item">
+        <span>✨</span>
+        <h4>Airbrush Finish</h4>
+        <p>Flawless, long-wear airbrush foundation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="booking-cta">
+    <span class="eyebrow" style="color:rgba(255,255,255,0.7);">Let's make it happen</span>
+    <h2>Ready to Book?</h2>
+    <p>Dates fill up fast — especially spring and fall wedding season. Reach out to check availability for your date.</p>
+    <a href="contact.html" class="btn" style="border-color:white;color:white;">Contact Kaitlyn</a>
+  </section>
+
+  <footer>
+    <div class="footer-logo"><img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" /></div>
+    <ul class="footer-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/share/195ZhncpV3/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://www.instagram.com/bridalbykaitlyn" target="_blank" rel="noopener" aria-label="Instagram">&#9824;</a>
+    </div>
+    <p class="footer-copy">© 2025 Bridal Glam by Kaitlyn · Loveland, CO · bridalbykaitlyn@outlook.com</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

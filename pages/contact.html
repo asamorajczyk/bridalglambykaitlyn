@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Book | Bridal Glam by Kaitlyn</title>
+  <meta name="description" content="Book Kaitlyn Magnuson for bridal hair and makeup in Northern Colorado. Serving Loveland, Fort Collins, Greeley & Kersey." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .page-hero {
+      margin-top: var(--nav-h);
+      background: var(--blush);
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); color: var(--black); margin-bottom: 16px; }
+    .page-hero p { color: var(--mid-gray); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+    .contact-section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-pad);
+    }
+
+    .faq-section {
+      background: var(--blush);
+      padding: var(--section-pad);
+    }
+    .faq-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .faq-inner h2 { font-size: clamp(1.8rem,3vw,2.4rem); color: var(--black); margin-bottom: 48px; text-align: center; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--rose);
+      padding: 24px 0;
+    }
+    .faq-item:first-of-type { border-top: 1px solid var(--rose); }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      gap: 16px;
+    }
+    .faq-question h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--black);
+      font-weight: 400;
+    }
+    .faq-toggle {
+      width: 28px; height: 28px;
+      border: 1px solid var(--rose);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--dusty-rose);
+      flex-shrink: 0;
+      transition: transform 0.25s;
+    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    .faq-answer {
+      display: none;
+      padding-top: 16px;
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+      line-height: 1.8;
+    }
+    .faq-item.open .faq-answer { display: block; }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-book"><a href="contact.html" class="btn btn-rose">Book Now</a></div>
+    <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-rose" style="margin-top:8px;">Book Now</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow">Let's Connect</span>
+    <h1>Book Your Date</h1>
+    <p>Ready to lock in your look? Fill out the form below and I'll get back to you within 48 hours.</p>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div class="contact-section">
+    <div class="contact-grid">
+      <!-- LEFT: Info -->
+      <div class="contact-info">
+        <span class="eyebrow">Get in Touch</span>
+        <h2>I'd Love to Hear From You</h2>
+        <p>Whether you have questions about services, want to check availability, or are ready to book — I'm here and happy to help. Don't be shy!</p>
+
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="contact-detail-icon">✉</div>
+            <div class="contact-detail-text">
+              <strong>Email</strong>
+              <span><a href="mailto:bridalbykaitlyn@outlook.com">bridalbykaitlyn@outlook.com</a></span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div class="contact-detail-text">
+              <strong>Service Area</strong>
+              <span>Loveland · Fort Collins · Greeley · Kersey, CO</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">f</div>
+            <div class="contact-detail-text">
+              <strong>Facebook</strong>
+              <span><a href="https://www.facebook.com/share/195ZhncpV3/" target="_blank" rel="noopener">Bridal Glam by Kaitlyn</a></span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">♠</div>
+            <div class="contact-detail-text">
+              <strong>Instagram</strong>
+              <span><a href="https://www.instagram.com/bridalbykaitlyn" target="_blank" rel="noopener">@bridalbykaitlyn</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:40px;padding:24px;background:var(--blush);border-left:3px solid var(--dusty-rose);">
+          <p style="font-size:0.85rem;color:var(--soft-black);margin:0;line-height:1.8;">
+            <strong style="font-family:var(--font-display);font-size:1rem;">Booking Tips:</strong><br>
+            Wedding dates book out months in advance. The sooner you reach out, the better chance of securing your date — especially for peak spring and fall seasons.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div>
+        <form class="contact-form" id="contact-form">
+          <!--
+            TO MAKE THIS FORM WORK:
+            Option 1 - Formspree (free, easy):
+              1. Go to formspree.io and create a free account
+              2. Create a new form and copy your endpoint
+              3. Change this to: <form action="https://formspree.io/f/YOUR_ID" method="POST">
+              4. Remove the JS form handler in main.js (or keep for UX)
+            
+            Option 2 - Netlify Forms (if deploying to Netlify):
+              Add netlify attribute: <form netlify name="contact">
+          -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name *</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="you@email.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(970) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label for="date">Event Date *</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Interested In *</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option value="bridal-full">Bridal Hair + Makeup (Full Package)</option>
+              <option value="bridal-hair">Bridal Hair Only</option>
+              <option value="bridal-makeup">Bridal Makeup Only</option>
+              <option value="bridal-party">Bridal Party (Group)</option>
+              <option value="prom">Prom / Formal Event</option>
+              <option value="special">Special Occasion</option>
+              <option value="other">Other / Not Sure Yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="location">Event Location / City</label>
+            <input type="text" id="location" name="location" placeholder="e.g. Loveland, CO" />
+          </div>
+          <div class="form-group">
+            <label for="message">Tell Me More</label>
+            <textarea id="message" name="message" placeholder="Number of people, vision for your look, questions, etc."></textarea>
+          </div>
+          <button type="submit" class="btn btn-rose" style="width:100%;padding:16px;">Send Inquiry</button>
+        </form>
+
+        <div class="form-success" id="form-success">
+          <h3>Thank you!</h3>
+          <p>Your message has been sent. I'll be in touch within 48 hours. 💕</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <span class="eyebrow" style="text-align:center;display:block;">Common Questions</span>
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Do you do hair AND makeup?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Yes! That's one of the things that makes Bridal Glam by Kaitlyn unique. You get both hair and makeup from one artist, meaning your full look is cohesive and you don't need to coordinate between multiple stylists.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>How far in advance should I book?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">For weddings, I recommend reaching out as early as possible — 6 to 12 months in advance is ideal, especially for peak spring and fall dates. Prom and other events can usually be booked with less lead time, but sooner is always better!</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Do you offer bridal trials?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Yes, and I highly recommend them! A trial session lets us test out your look before the big day so there are no surprises. It's also a great chance to adjust and perfect everything so you feel 100% confident.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Where are you located / do you travel?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">I'm based in Northern Colorado and serve Loveland, Fort Collins, Greeley, Kersey, and surrounding areas. Travel availability and fees may apply depending on your location — just ask!</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>How much do services cost?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Pricing varies based on the services needed, number of people, and travel. I offer custom quotes so you get accurate pricing for your specific event. Reach out and I'll put together something tailored to you!</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Do you work with all skin types and tones?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Absolutely. Beauty has no one look — I work with all skin tones, textures, and types. My kit is stocked to create beautiful looks for everyone.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo"><img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" /></div>
+    <ul class="footer-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/share/195ZhncpV3/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://www.instagram.com/bridalbykaitlyn" target="_blank" rel="noopener" aria-label="Instagram">&#9824;</a>
+    </div>
+    <p class="footer-copy">© 2025 Bridal Glam by Kaitlyn · Loveland, CO · bridalbykaitlyn@outlook.com</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.faq-item');
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

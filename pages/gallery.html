@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Bridal Glam by Kaitlyn</title>
+  <meta name="description" content="Portfolio of hair and makeup work by Kaitlyn Magnuson — bridal, prom, and special events in Northern Colorado." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .page-hero {
+      margin-top: var(--nav-h);
+      background: var(--black);
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); color: var(--white); margin-bottom: 16px; }
+    .page-hero p { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 480px; margin: 0 auto; }
+
+    /* Filter buttons */
+    .gallery-filter {
+      padding: 40px 24px 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border: 1px solid var(--rose);
+      background: transparent;
+      color: var(--soft-black);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--dusty-rose);
+      border-color: var(--dusty-rose);
+      color: white;
+    }
+
+    /* Masonry-style gallery */
+    .gallery-full {
+      columns: 3;
+      column-gap: 8px;
+      padding: 32px 24px 80px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .gallery-full-item {
+      break-inside: avoid;
+      margin-bottom: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: var(--blush);
+    }
+    .gallery-full-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-full-item:hover img { transform: scale(1.03); }
+    .gallery-full-placeholder {
+      width: 100%;
+      padding-top: 125%;
+      background: linear-gradient(145deg, var(--blush), var(--rose));
+      position: relative;
+    }
+    .gallery-full-placeholder span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--dusty-rose);
+      font-size: 0.9rem;
+    }
+    .gallery-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.5));
+      padding: 32px 16px 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-full-item:hover .gallery-label { opacity: 1; }
+    .gallery-label span {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    .instagram-cta {
+      background: var(--blush);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .instagram-cta h2 { font-size: clamp(1.8rem,3vw,2.4rem); color: var(--black); margin-bottom: 16px; }
+    .instagram-cta p { color: var(--mid-gray); margin-bottom: 32px; font-size: 0.93rem; }
+
+    @media (max-width: 768px) {
+      .gallery-full { columns: 2; }
+    }
+    @media (max-width: 480px) {
+      .gallery-full { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-book"><a href="contact.html" class="btn btn-rose">Book Now</a></div>
+    <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-rose" style="margin-top:8px;">Book Now</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow" style="color:var(--rose);">Portfolio</span>
+    <h1>The Work</h1>
+    <p>Real clients, real looks. Every face tells a different story — here are some of my favorites.</p>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="gallery-filter">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="bridal">Bridal</button>
+    <button class="filter-btn" data-filter="prom">Prom</button>
+    <button class="filter-btn" data-filter="hair">Hair</button>
+    <button class="filter-btn" data-filter="makeup">Makeup</button>
+  </div>
+
+  <!-- GALLERY GRID — populated automatically from Google Drive -->
+  <div class="gallery-full" id="gallery"></div>
+
+  <!-- INSTAGRAM CTA -->
+  <section class="instagram-cta">
+    <span class="eyebrow">Follow Along</span>
+    <h2>See More on Instagram</h2>
+    <p>I post new work regularly — follow for inspiration, behind-the-scenes, and more looks.</p>
+    <a href="https://www.instagram.com/bridalbykaitlyn" target="_blank" rel="noopener" class="btn btn-rose">@bridalbykaitlyn</a>
+  </section>
+
+  <footer>
+    <div class="footer-logo"><img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" /></div>
+    <ul class="footer-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/share/195ZhncpV3/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://www.instagram.com/bridalbykaitlyn" target="_blank" rel="noopener" aria-label="Instagram">&#9824;</a>
+    </div>
+    <p class="footer-copy">© 2025 Bridal Glam by Kaitlyn · Loveland, CO · bridalbykaitlyn@outlook.com</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <img id="lightbox-img" src="" alt="Gallery image" />
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/gallery-drive.js"></script>
+</body>
+</html>
