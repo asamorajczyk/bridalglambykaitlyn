@@ -80,6 +80,29 @@ function _fetchRefs() {
   return _refsPromise;
 }
 
+// ── TEXT CONTENT LOADER ──
+// Fetches the "Text Content" sheet tab once, then fills all [data-text="key"] elements.
+// key: matches a row key in the Text Content sheet
+let _textPromise = null;
+function _fetchText() {
+  if (!_textPromise) {
+    _textPromise = fetch(APPS_SCRIPT_URL + '?action=text')
+      .then(r => r.json())
+      .catch(() => ({}));
+  }
+  return _textPromise;
+}
+
+async function loadTextContent() {
+  const text = await _fetchText();
+  Object.entries(text).forEach(([key, value]) => {
+    if (!value) return;
+    document.querySelectorAll(`[data-text="${key}"]`).forEach(el => {
+      el.textContent = value;
+    });
+  });
+}
+
 async function loadPhotoByRef(key, folderId, imgId, phId, size) {
   try {
     const refs = await _fetchRefs();

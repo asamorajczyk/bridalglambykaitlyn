@@ -49,9 +49,9 @@
     </div>
     <div class="hero-content">
       <span class="eyebrow">Northern Colorado's Bridal Artist</span>
-      <div class="hero-script">Making you feel</div>
+      <div class="hero-script" data-text="home_hero_script">Making you feel</div>
       <h1>Beautifully<br><em>Yourself</em></h1>
-      <p>Hair and makeup artistry for your most unforgettable moments — weddings, prom, and every celebration in between.</p>
+      <p data-text="home_hero_body">Hair and makeup artistry for your most unforgettable moments — weddings, prom, and every celebration in between.</p>
       <div style="display:flex;gap:16px;flex-wrap:wrap;">
         <a href="pages/contact.html" class="btn btn-rose">Book Your Date</a>
         <a href="pages/gallery.html" class="btn">View Gallery</a>
@@ -101,9 +101,9 @@
       </div>
       <div class="about-content">
         <span class="eyebrow">Meet Kaitlyn</span>
-        <h2>Your Hair &amp; Makeup Artist, All in One</h2>
-        <p>Hi, I'm Kaitlyn! I'm a bridal hairstylist and makeup artist based in Northern Colorado, passionate about helping every client feel their most confident and beautiful on their biggest day.</p>
-        <p>From ethereal bridal looks to bold prom glam, I bring a personalized touch to every appointment — because your look should feel like <em>you</em>, just elevated.</p>
+        <h2 data-text="home_about_headline">Your Hair &amp; Makeup Artist, All in One</h2>
+        <p data-text="home_about_body_1">Hi, I'm Kaitlyn! I'm a bridal hairstylist and makeup artist based in Northern Colorado, passionate about helping every client feel their most confident and beautiful on their biggest day.</p>
+        <p data-text="home_about_body_2">From ethereal bridal looks to bold prom glam, I bring a personalized touch to every appointment — because your look should feel like <em>you</em>, just elevated.</p>
         <div class="about-areas">
           <span class="area-tag">Loveland, CO</span>
           <span class="area-tag">Fort Collins, CO</span>
@@ -188,18 +188,18 @@
       <div class="testimonials-grid">
         <div class="testimonial-card">
           <div class="testimonial-stars">★★★★★</div>
-          <p>"Kaitlyn made me feel so beautiful on my wedding day. She listened to exactly what I wanted and delivered beyond my expectations. Highly recommend!"</p>
-          <span class="testimonial-author">— Bridal Client</span>
+          <p data-text="testimonial_1_text">"Kaitlyn made me feel so beautiful on my wedding day. She listened to exactly what I wanted and delivered beyond my expectations. Highly recommend!"</p>
+          <span class="testimonial-author" data-text="testimonial_1_author">— Bridal Client</span>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-stars">★★★★★</div>
-          <p>"She did my hair and makeup for prom and I've never felt more confident. Everyone was asking who did my look all night!"</p>
-          <span class="testimonial-author">— Prom Client</span>
+          <p data-text="testimonial_2_text">"She did my hair and makeup for prom and I've never felt more confident. Everyone was asking who did my look all night!"</p>
+          <span class="testimonial-author" data-text="testimonial_2_author">— Prom Client</span>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-stars">★★★★★</div>
-          <p>"So talented and so easy to work with. Kaitlyn kept the whole bridal party calm and gorgeous. We'll be booking her for every event."</p>
-          <span class="testimonial-author">— Bridal Party Client</span>
+          <p data-text="testimonial_3_text">"So talented and so easy to work with. Kaitlyn kept the whole bridal party calm and gorgeous. We'll be booking her for every event."</p>
+          <span class="testimonial-author" data-text="testimonial_3_author">— Bridal Party Client</span>
         </div>
       </div>
     </div>
@@ -242,6 +242,7 @@
     const _ABOUTME = '14P6jz4Dkh1AahYhZRw62655lzQelnGNH';
     loadPhotoByRef('home_hero',  _ABOUTME, 'hero-photo-img',  'hero-photo-placeholder',  1600);
     loadPhotoByRef('home_strip', _ABOUTME, 'about-photo-img', 'about-photo-placeholder', 1200);
+    loadTextContent();
   </script>
 </body>
 </html>

@@ -177,7 +177,7 @@
         <div class="about-photo-placeholder" id="about-photo-placeholder">Photo of Kaitlyn</div>
       </div>
       <blockquote class="about-quote">
-        "I'm so happy you're here. Feel free to reach out with any questions."
+        <span data-text="about_quote">"I'm so happy you're here. Feel free to reach out with any questions."</span>
         <footer style="margin-top:10px;font-style:normal;font-size:0.75rem;letter-spacing:0.1em;color:var(--mid-gray);">— Kaitlyn Magnuson</footer>
       </blockquote>
     </div>
@@ -185,15 +185,15 @@
     <div class="about-text">
       <span class="eyebrow">My Story</span>
       <h2>Hair &amp; Makeup, Heart &amp; Soul</h2>
-      <p>Hi, I'm Kaitlyn — a bridal hairstylist and makeup artist based in Northern Colorado. I started Bridal Glam by Kaitlyn because I believe every person deserves to feel truly beautiful on the moments that matter most.</p>
-      <p>What sets me apart? I do hair <em>and</em> makeup, which means you get a cohesive look from one artist who knows exactly how your full look is coming together — without coordinating between two different people on your big day.</p>
-      <p>I specialize in weddings, prom, and special events across the Loveland, Fort Collins, Greeley, and Kersey areas. Whether you want something soft and romantic or bold and editorial, I'll work with you to create a look that feels authentically you.</p>
-      <p>With a 100% recommendation rate from all my clients, my goal is simple: show up, make you feel incredible, and give you memories you'll love looking back on.</p>
+      <p data-text="about_bio_p1">Hi, I'm Kaitlyn — a bridal hairstylist and makeup artist based in Northern Colorado. I started Bridal Glam by Kaitlyn because I believe every person deserves to feel truly beautiful on the moments that matter most.</p>
+      <p data-text="about_bio_p2">What sets me apart? I do hair <em>and</em> makeup, which means you get a cohesive look from one artist who knows exactly how your full look is coming together — without coordinating between two different people on your big day.</p>
+      <p data-text="about_bio_p3">I specialize in weddings, prom, and special events across the Loveland, Fort Collins, Greeley, and Kersey areas. Whether you want something soft and romantic or bold and editorial, I'll work with you to create a look that feels authentically you.</p>
+      <p data-text="about_bio_p4">With a 100% recommendation rate from all my clients, my goal is simple: show up, make you feel incredible, and give you memories you'll love looking back on.</p>
 
       <div class="about-story-callout">
         <div class="story-bubble">"Hey Kaitlyn, how much do you enjoy doing hair?"</div>
-        <div class="story-answer">✨ Me on my wedding day ✨</div>
-        <p class="story-caption">Yes — that's really me, doing hair for others on my own wedding day. That's how much I love this.</p>
+        <div class="story-answer" data-text="about_story_answer">✨ Me on my wedding day ✨</div>
+        <p class="story-caption" data-text="about_story_caption">Yes — that's really me, doing hair for others on my own wedding day. That's how much I love this.</p>
       </div>
 
       <div class="about-values">
@@ -253,6 +253,7 @@
   <script src="../js/main.js"></script>
   <script>
     loadPhotoByRef('about_portrait', '14P6jz4Dkh1AahYhZRw62655lzQelnGNH', 'about-photo-img', 'about-photo-placeholder', 1200);
+    loadTextContent();
   </script>
 </body>
 </html>
