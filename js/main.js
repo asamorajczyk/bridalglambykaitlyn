@@ -1,3 +1,23 @@
+// ── LOGO FROM DRIVE ──
+(async () => {
+  try {
+    const FOLDER_ID = '1J5ZeboobsRd_d6NYk3zaNPQDV3nAoQcX';
+    const API_KEY   = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
+    const q = encodeURIComponent(`'${FOLDER_ID}' in parents and trashed = false`);
+    const res = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink,name)&pageSize=5&key=${API_KEY}`
+    );
+    const { files } = await res.json();
+    const logo = files?.find(f => f.thumbnailLink);
+    if (logo) {
+      const url = logo.thumbnailLink.replace(/=s\d+$/, '=s400');
+      document.querySelectorAll('.nav-logo img, .footer-logo img').forEach(img => {
+        img.src = url;
+      });
+    }
+  } catch (e) { console.error('Logo load failed', e); }
+})();
+
 // ── NAV SCROLL ──
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
