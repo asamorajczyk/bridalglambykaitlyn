@@ -156,20 +156,25 @@
       </div>
     </div>
     <div class="gallery-grid" style="max-width:var(--max-w);margin:0 auto 0;padding:0 24px;">
-      <div class="gallery-item tall">
-        <div class="gallery-placeholder">Bridal Look 1</div>
+      <div class="gallery-item tall" id="home-gal-0" data-src="">
+        <div class="gallery-placeholder">Loading…</div>
+        <img src="" alt="Gallery photo" style="display:none;" />
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">Prom Look</div>
+      <div class="gallery-item" id="home-gal-1" data-src="">
+        <div class="gallery-placeholder">Loading…</div>
+        <img src="" alt="Gallery photo" style="display:none;" />
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">Updo</div>
+      <div class="gallery-item" id="home-gal-2" data-src="">
+        <div class="gallery-placeholder">Loading…</div>
+        <img src="" alt="Gallery photo" style="display:none;" />
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">Bridal Makeup</div>
+      <div class="gallery-item" id="home-gal-3" data-src="">
+        <div class="gallery-placeholder">Loading…</div>
+        <img src="" alt="Gallery photo" style="display:none;" />
       </div>
-      <div class="gallery-item tall">
-        <div class="gallery-placeholder">Editorial</div>
+      <div class="gallery-item tall" id="home-gal-4" data-src="">
+        <div class="gallery-placeholder">Loading…</div>
+        <img src="" alt="Gallery photo" style="display:none;" />
       </div>
     </div>
     <div style="text-align:center;padding:48px 24px;">
@@ -245,6 +250,35 @@
     loadPhotoByRef('home_hero',  _ABOUTME, 'hero-photo-img',  'hero-photo-placeholder',  1600);
     loadPhotoByRef('home_strip', _ABOUTME, 'about-photo-img', 'about-photo-placeholder', 1200);
     loadTextContent();
+
+    // Load Recent Work preview photos from the Photo References sheet
+    // Add rows with keys home_gallery_1 … home_gallery_5 to control which photos appear here
+    (async () => {
+      try {
+        const API_KEY = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
+        const refs = await _fetchRefs();
+        for (let i = 0; i < 5; i++) {
+          const fileName = refs[`home_gallery_${i + 1}`];
+          if (!fileName) continue;
+          const q = encodeURIComponent(`name='${fileName}' and trashed=false`);
+          const { files } = await fetch(
+            `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink)&pageSize=1&key=${API_KEY}`
+          ).then(r => r.json());
+          const thumb = files?.[0]?.thumbnailLink;
+          if (!thumb) continue;
+          const item = document.getElementById(`home-gal-${i}`);
+          if (!item) continue;
+          item.dataset.src = thumb.replace(/=s\d+$/, '=s1600');
+          const img = item.querySelector('img');
+          if (img) {
+            img.src = thumb.replace(/=s\d+$/, '=s800');
+            img.alt = fileName;
+            img.style.display = 'block';
+          }
+          item.querySelector('.gallery-placeholder')?.style.setProperty('display', 'none');
+        }
+      } catch(e) { console.error('Home gallery preview load failed', e); }
+    })();
   </script>
 </body>
 </html>
