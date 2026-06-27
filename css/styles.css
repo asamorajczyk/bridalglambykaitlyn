@@ -410,6 +410,18 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
   margin-bottom: 20px;
   display: block;
 }
+.service-icon svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--dusty-rose);
+}
+.service-icon img {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: block;
+  margin: 0 auto;
+  filter: invert(52%) sepia(30%) saturate(500%) hue-rotate(295deg) brightness(95%);
+}
 .service-card h3 {
   font-size: 1.4rem;
   margin-bottom: 14px;
@@ -519,16 +531,20 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
 .contact-details { display: flex; flex-direction: column; gap: 20px; }
 .contact-detail {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
 }
 .contact-detail-icon {
   width: 36px; height: 36px;
-  border: 1px solid var(--rose);
   display: flex; align-items: center; justify-content: center;
   font-size: 0.9rem;
   flex-shrink: 0;
-  margin-top: 2px;
+}
+.contact-detail-icon svg { width: 17px; height: 17px; }
+.contact-detail-icon img { width: 17px; height: 17px; display: block; }
+.contact-social-icon { color: var(--dark-rose); }
+.contact-social-icon img {
+  filter: brightness(0) saturate(100%) invert(28%) sepia(50%) saturate(700%) hue-rotate(305deg) brightness(90%);
 }
 .contact-detail-text strong {
   display: block;
@@ -608,7 +624,13 @@ footer {
   transition: color 0.2s;
 }
 .footer-social a svg { width: 17px; height: 17px; }
+.footer-social a img {
+  width: 17px; height: 17px;
+  filter: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(600%) hue-rotate(315deg) brightness(95%);
+  transition: filter 0.2s;
+}
 .footer-social a:hover { color: #fff; }
+.footer-social a:hover img { filter: brightness(0) invert(1); }
 .footer-copy {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
