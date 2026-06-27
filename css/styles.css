@@ -8,14 +8,14 @@
 
 :root {
   --white:       #FFFFFF;
-  --blush:       #F9EEE8;
-  --rose:        #E8C4B8;
-  --dusty-rose:  #C9897A;
-  --dark-rose:   #9E5E52;
-  --black:       #1A1A1A;
-  --soft-black:  #2E2E2E;
-  --mid-gray:    #888888;
-  --light-gray:  #F4F4F4;
+  --blush:       #FDE1E8;
+  --rose:        #F5B8C8;
+  --dusty-rose:  #D97090;
+  --dark-rose:   #A0485F;
+  --black:       #1A1518;
+  --soft-black:  #2E2830;
+  --mid-gray:    #8A8186;
+  --light-gray:  #F7EEF1;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-script:  'Great Vibes', cursive;
@@ -255,6 +255,7 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 300;
+  line-height: 1.1;
   color: var(--dusty-rose);
 }
 .hero-badge span {
@@ -262,6 +263,15 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--mid-gray);
+}
+.badge-inline {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+.badge-inline strong {
+  display: inline;
 }
 
 /* ── MARQUEE ── */
@@ -458,13 +468,14 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
 .testimonials .section-header h2 { color: var(--white); }
 .testimonials .section-header .eyebrow { color: var(--rose); }
 .testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  max-width: 860px;
+  margin: 0 auto;
 }
 .testimonial-card {
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 40px 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 48px 40px;
 }
 .testimonial-stars {
   color: var(--dusty-rose);
@@ -475,10 +486,10 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
 .testimonial-card p {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: rgba(255,255,255,0.85);
-  line-height: 1.8;
-  margin-bottom: 24px;
+  line-height: 1.85;
+  margin-bottom: 20px;
 }
 .testimonial-author {
   font-size: 0.7rem;
@@ -569,7 +580,7 @@ footer {
   padding: 60px 48px 32px;
   text-align: center;
 }
-.footer-logo img { height: 80px; margin: 0 auto 24px; filter: brightness(0) invert(1); opacity: 0.9; }
+.footer-logo img { height: 80px; margin: 0 auto 24px; opacity: 0.9; }
 .footer-links {
   display: flex;
   justify-content: center;
@@ -592,13 +603,12 @@ footer {
 }
 .footer-social a {
   width: 38px; height: 38px;
-  border: 1px solid rgba(255,255,255,0.15);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.5);
-  font-size: 0.85rem;
-  transition: border-color 0.2s, color 0.2s;
+  color: #fde1e8;
+  transition: color 0.2s;
 }
-.footer-social a:hover { border-color: var(--rose); color: var(--rose); }
+.footer-social a svg { width: 17px; height: 17px; }
+.footer-social a:hover { color: #fff; }
 .footer-copy {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
@@ -606,6 +616,13 @@ footer {
   border-top: 1px solid rgba(255,255,255,0.08);
   padding-top: 28px;
 }
+.footer-attribution {
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.15);
+  margin-top: 10px;
+}
+.footer-attribution a { color: rgba(255,255,255,0.2); text-decoration: underline; }
 
 /* ── LIGHTBOX ── */
 .lightbox {
@@ -649,7 +666,6 @@ footer {
   .hero-content { padding: 60px 40px; }
   .about-strip-inner { grid-template-columns: 1fr; gap: 48px; }
   .services-grid { grid-template-columns: 1fr 1fr; }
-  .testimonials-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -660,7 +676,6 @@ footer {
   .nav-links, .nav-book { display: none; }
   .hamburger { display: flex; }
   .services-grid { grid-template-columns: 1fr; }
-  .testimonials-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
   .gallery-item.tall { grid-row: span 1; }
