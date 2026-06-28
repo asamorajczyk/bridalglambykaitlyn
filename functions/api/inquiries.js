@@ -30,10 +30,45 @@ export async function onRequestGet(context) {
       service:   r.fields['Service']     || '',
       location:  r.fields['Location']    || '',
       message:   r.fields['Message']     || '',
+      status:    r.fields['Status']      || 'Received',
       submitted: r.fields['Submitted']   || r.createdTime,
     }));
 
     return json({ inquiries });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+export async function onRequestPatch(context) {
+  const { request, env } = context;
+
+  if (!env.AIRTABLE_TOKEN || !env.AIRTABLE_BASE_ID) {
+    return json({ error: 'Airtable not configured' }, 500);
+  }
+
+  try {
+    const { id, status } = await request.json();
+    if (!id || !status) return json({ error: 'Missing id or status' }, 400);
+
+    const res = await fetch(
+      `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/Inquiries/${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${env.AIRTABLE_TOKEN}`,
+          'Content-Type':  'application/json',
+        },
+        body: JSON.stringify({ fields: { Status: status } }),
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      return json({ error: err.error?.message || `Airtable error ${res.status}` }, 500);
+    }
+
+    return json({ success: true });
   } catch (e) {
     return json({ error: e.message }, 500);
   }

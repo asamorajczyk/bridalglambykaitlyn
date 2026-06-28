@@ -2,6 +2,16 @@
   'use strict';
 
   const BAR_H = 48;
+  const STATUSES = ['Received', 'Responded To', 'Booked', 'Ignore'];
+  const SERVICE_LABELS = {
+    'bridal-full':   'Bridal Hair + Makeup',
+    'bridal-hair':   'Bridal Hair Only',
+    'bridal-makeup': 'Bridal Makeup Only',
+    'bridal-party':  'Bridal Party (Group)',
+    'prom':          'Prom / Formal Event',
+    'special':       'Special Occasion',
+    'other':         'Other / Not Sure Yet',
+  };
   let siteContent = null;
   let siteSha     = null;
 
@@ -67,6 +77,7 @@
     document.getElementById('ao-inq-close').addEventListener('click', () => {
       panel.classList.remove('open');
     });
+    document.getElementById('ao-inq-list').addEventListener('click', handleKanbanClick);
   }
 
   async function openInquiries() {
@@ -82,33 +93,140 @@
         list.innerHTML = '<p class="ao-dim">No inquiries yet.</p>';
         return;
       }
-      const SERVICE_LABELS = {
-        'bridal-full':   'Bridal Hair + Makeup (Full Package)',
-        'bridal-hair':   'Bridal Hair Only',
-        'bridal-makeup': 'Bridal Makeup Only',
-        'bridal-party':  'Bridal Party (Group)',
-        'prom':          'Prom / Formal Event',
-        'special':       'Special Occasion',
-        'other':         'Other / Not Sure Yet',
-      };
-      const row = (label, val) => val
-        ? `<div class="ao-inq-row"><span class="ao-inq-label">${label}</span><span class="ao-inq-val">${esc(val)}</span></div>`
-        : '';
-      list.innerHTML = inquiries.map(inq => `
-        <div class="ao-inq-card">
-          <div class="ao-inq-name">${esc(inq.name)}</div>
-          ${row('Email',      inq.email)}
-          ${row('Phone',      inq.phone)}
-          ${row('Event Date', inq.eventDate)}
-          ${row('Service',    SERVICE_LABELS[inq.service] || inq.service)}
-          ${row('Location',   inq.location)}
-          ${inq.message ? `<div class="ao-inq-row ao-inq-row--msg"><span class="ao-inq-label">Message</span><span class="ao-inq-val">${esc(inq.message)}</span></div>` : ''}
-          <div class="ao-inq-date">Submitted ${fmtDate(inq.submitted)}</div>
-        </div>
-      `).join('');
+      renderKanban(list, inquiries);
     } catch (e) {
       list.innerHTML = `<p class="ao-dim" style="color:#c55">${esc(e.message)}</p>`;
     }
+  }
+
+  function renderKanban(container, inquiries) {
+    const groups = {};
+    STATUSES.forEach(s => { groups[s] = []; });
+    inquiries.forEach(inq => {
+      const s = inq.status || 'Received';
+      (groups[s] ?? groups['Received']).push(inq);
+    });
+
+    container.innerHTML = STATUSES.map(status => `
+      <div class="ao-kanban-col" data-col="${esc(status)}">
+        <div class="ao-kanban-head">
+          <span class="ao-kanban-dot ao-dot-${statusSlug(status)}"></span>
+          <span class="ao-kanban-title">${esc(status)}</span>
+          <span class="ao-kanban-count">${groups[status].length}</span>
+        </div>
+        <div class="ao-kanban-cards">
+          ${groups[status].length
+            ? groups[status].map(buildCard).join('')
+            : '<p class="ao-col-empty">—</p>'}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function buildCard(inq) {
+    const status = inq.status || 'Received';
+    const row = (label, val) => val
+      ? `<div class="ao-inq-row"><span class="ao-inq-label">${label}</span><span class="ao-inq-val">${esc(val)}</span></div>`
+      : '';
+    return `
+      <div class="ao-inq-card" data-id="${esc(inq.id)}" data-status="${esc(status)}">
+        <div class="ao-card-head">
+          <div class="ao-inq-name">${esc(inq.name)}</div>
+          <div class="ao-status-wrap">
+            <button class="ao-status-badge ao-status-${statusSlug(status)}">${esc(status)}</button>
+            <div class="ao-status-menu" hidden>
+              ${STATUSES.map(s =>
+                `<button class="ao-status-opt${s === status ? ' active' : ''}" data-val="${esc(s)}">${esc(s)}</button>`
+              ).join('')}
+            </div>
+          </div>
+        </div>
+        ${row('Email',      inq.email)}
+        ${row('Phone',      inq.phone)}
+        ${row('Event Date', inq.eventDate)}
+        ${row('Service',    SERVICE_LABELS[inq.service] || inq.service)}
+        ${row('Location',   inq.location)}
+        ${inq.message ? `<div class="ao-inq-row ao-inq-row--msg"><span class="ao-inq-label">Message</span><span class="ao-inq-val">${esc(inq.message)}</span></div>` : ''}
+        <div class="ao-inq-date">Submitted ${fmtDate(inq.submitted)}</div>
+      </div>`;
+  }
+
+  function statusSlug(s) {
+    return s.toLowerCase().replace(/\s+/g, '-');
+  }
+
+  async function handleKanbanClick(e) {
+    const badge = e.target.closest('.ao-status-badge');
+    if (badge) {
+      const menu   = badge.nextElementSibling;
+      const wasOpen = !menu.hidden;
+      document.querySelectorAll('.ao-status-menu').forEach(m => { m.hidden = true; });
+      menu.hidden = wasOpen;
+      return;
+    }
+
+    const opt = e.target.closest('.ao-status-opt');
+    if (opt) {
+      const newStatus = opt.dataset.val;
+      const card      = opt.closest('.ao-inq-card');
+      const oldStatus = card.dataset.status;
+      opt.closest('.ao-status-menu').hidden = true;
+      if (newStatus === oldStatus) return;
+
+      const list     = document.getElementById('ao-inq-list');
+      const oldCards = list.querySelector(`.ao-kanban-col[data-col="${oldStatus}"] .ao-kanban-cards`);
+      const newCards = list.querySelector(`.ao-kanban-col[data-col="${newStatus}"] .ao-kanban-cards`);
+      const recordId = card.dataset.id;
+
+      // Optimistic UI update
+      const badge = card.querySelector('.ao-status-badge');
+      card.dataset.status = newStatus;
+      badge.className = `ao-status-badge ao-status-${statusSlug(newStatus)}`;
+      badge.textContent = newStatus;
+      card.querySelectorAll('.ao-status-opt').forEach(o =>
+        o.classList.toggle('active', o.dataset.val === newStatus)
+      );
+      newCards.querySelector('.ao-col-empty')?.remove();
+      newCards.prepend(card);
+      if (!oldCards.querySelector('.ao-inq-card'))
+        oldCards.innerHTML = '<p class="ao-col-empty">—</p>';
+      updateCount(list, oldStatus);
+      updateCount(list, newStatus);
+
+      try {
+        const res  = await fetch('/api/inquiries', {
+          method:  'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ id: recordId, status: newStatus }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Update failed');
+      } catch {
+        // Revert on failure
+        card.dataset.status = oldStatus;
+        badge.className = `ao-status-badge ao-status-${statusSlug(oldStatus)}`;
+        badge.textContent = oldStatus;
+        card.querySelectorAll('.ao-status-opt').forEach(o =>
+          o.classList.toggle('active', o.dataset.val === oldStatus)
+        );
+        oldCards.querySelector('.ao-col-empty')?.remove();
+        oldCards.prepend(card);
+        if (!newCards.querySelector('.ao-inq-card'))
+          newCards.innerHTML = '<p class="ao-col-empty">—</p>';
+        updateCount(list, oldStatus);
+        updateCount(list, newStatus);
+      }
+      return;
+    }
+
+    if (!e.target.closest('.ao-status-wrap'))
+      document.querySelectorAll('.ao-status-menu').forEach(m => { m.hidden = true; });
+  }
+
+  function updateCount(list, status) {
+    const col = list.querySelector(`.ao-kanban-col[data-col="${status}"]`);
+    if (col) col.querySelector('.ao-kanban-count').textContent =
+      col.querySelectorAll('.ao-inq-card').length;
   }
 
   // ── SITE CONTENT ────────────────────────────────────────────────────────
