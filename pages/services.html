@@ -136,7 +136,8 @@
 
   <nav id="main-nav">
     <a href="../index.html" class="nav-logo">
-      <img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+      <img src="/images/uploads/logo.jpg" alt="Bridal Glam by Kaitlyn" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+      <span style="display:none;font-family:'Playfair Display',Georgia,serif;font-size:1rem;">Bridal Glam by Kaitlyn</span>
     </a>
     <ul class="nav-links">
       <li><a href="../index.html">Home</a></li>
@@ -168,8 +169,8 @@
     <!-- BRIDAL -->
     <div class="service-block">
       <div class="service-block-image">
-        <div class="service-block-placeholder" id="service-bridal-ph">Bridal photo here</div>
-        <img id="service-bridal-img" src="" alt="Bridal hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
+        <div class="service-block-placeholder" id="service-bridal-ph" style="display:none;">Bridal photo here</div>
+        <img src="/images/uploads/service-bridal.jpg" alt="Bridal hair and makeup" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('service-bridal-ph').style.display='flex';" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Most Popular</span>
@@ -193,8 +194,8 @@
     <!-- BRIDAL PARTY -->
     <div class="service-block reverse">
       <div class="service-block-image">
-        <div class="service-block-placeholder" id="service-party-ph">Bridal party photo here</div>
-        <img id="service-party-img" src="" alt="Bridal party hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
+        <div class="service-block-placeholder" id="service-party-ph" style="display:none;">Bridal party photo here</div>
+        <img src="/images/uploads/service-party.jpg" alt="Bridal party hair and makeup" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('service-party-ph').style.display='flex';" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Groups Welcome</span>
@@ -216,8 +217,8 @@
     <!-- PROM -->
     <div class="service-block">
       <div class="service-block-image">
-        <div class="service-block-placeholder" id="service-prom-ph">Prom photo here</div>
-        <img id="service-prom-img" src="" alt="Prom hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
+        <div class="service-block-placeholder" id="service-prom-ph" style="display:none;">Prom photo here</div>
+        <img src="/images/uploads/service-prom.jpg" alt="Prom hair and makeup" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('service-prom-ph').style.display='flex';" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Prom &amp; Formal</span>
@@ -236,8 +237,8 @@
     <!-- OCCASIONS -->
     <div class="service-block reverse">
       <div class="service-block-image">
-        <div class="service-block-placeholder" id="service-events-ph">Special occasion photo</div>
-        <img id="service-events-img" src="" alt="Special events hair and makeup" style="display:none;width:100%;height:100%;object-fit:cover;" />
+        <div class="service-block-placeholder" id="service-events-ph" style="display:none;">Special occasion photo</div>
+        <img src="/images/uploads/service-events.jpg" alt="Special events hair and makeup" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('service-events-ph').style.display='flex';" />
       </div>
       <div class="service-block-content">
         <span class="eyebrow">Any Occasion</span>
@@ -287,7 +288,7 @@
   </section>
 
   <footer>
-    <div class="footer-logo"><img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" /></div>
+    <div class="footer-logo"><img src="/images/uploads/logo.jpg" alt="Bridal Glam by Kaitlyn" onerror="this.style.display='none'" /></div>
     <ul class="footer-links">
       <li><a href="../index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
@@ -305,11 +306,5 @@
   </footer>
 
   <script src="../js/main.js"></script>
-  <script>
-    loadPhotoByRef('services_bridal', '1axFxasUIxzBeqbsDrXTuYlbPu_oO7KHo', 'service-bridal-img', 'service-bridal-ph', 1200);
-    loadPhotoByRef('services_party',  '1axFxasUIxzBeqbsDrXTuYlbPu_oO7KHo', 'service-party-img',  'service-party-ph',  1200);
-    loadPhotoByRef('services_prom',   '120Xm5fybA8_B44H6i2XLJJM2U_UXG9xp', 'service-prom-img',   'service-prom-ph',   1200);
-    loadPhotoByRef('services_events', '1qYKpS7zQyNIuWTAj1z-HJgNmpkBpz9nv', 'service-events-img', 'service-events-ph', 1200);
-  </script>
 </body>
 </html>

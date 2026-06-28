@@ -1,25 +1,3 @@
-const _DRIVE_API = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
-
-// ── LOGO FROM DRIVE ──
-(async () => {
-  try {
-    const FOLDER_ID = '1J5ZeboobsRd_d6NYk3zaNPQDV3nAoQcX';
-    const API_KEY   = _DRIVE_API;
-    const q = encodeURIComponent(`'${FOLDER_ID}' in parents and trashed = false`);
-    const res = await fetch(
-      `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink,name)&pageSize=5&key=${API_KEY}`
-    );
-    const { files } = await res.json();
-    const logo = files?.find(f => f.thumbnailLink);
-    if (logo) {
-      const url = logo.thumbnailLink.replace(/=s\d+$/, '=s400');
-      document.querySelectorAll('.nav-logo img, .footer-logo img').forEach(img => {
-        img.src = url;
-      });
-    }
-  } catch (e) { console.error('Logo load failed', e); }
-})();
-
 // ── NAV SCROLL ──
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
@@ -37,7 +15,7 @@ document.querySelectorAll('.mobile-nav a').forEach(link => {
 });
 
 // ── LIGHTBOX ──
-const lightbox = document.getElementById('lightbox');
+const lightbox    = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 
 document.querySelectorAll('.gallery-item[data-src]').forEach(item => {
@@ -64,95 +42,57 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
-// ── CONTACT FORM ──
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcrKPd4kGw4MoE0IY5VerOpGqqd1CfKdUkJDs1MywOcdTShKbQJ32ssuh3MRG53ltb/exec';
-
-// ── PHOTO REF LOADER ──
-// Fetches the Photo References sheet once, then finds a specific file by name in a Drive folder.
-// key: matches a row key returned by doGet?action=refs in the Apps Script
-let _refsPromise = null;
-function _fetchRefs() {
-  if (!_refsPromise) {
-    _refsPromise = fetch(APPS_SCRIPT_URL + '?action=refs')
-      .then(r => r.json())
-      .catch(() => ({}));
-  }
-  return _refsPromise;
-}
-
-// ── TEXT CONTENT LOADER ──
-// Fetches the "Text Content" sheet tab once, then fills all [data-text="key"] elements.
-// key: matches a row key in the Text Content sheet
-let _textPromise = null;
-function _fetchText() {
-  if (!_textPromise) {
-    _textPromise = fetch(APPS_SCRIPT_URL + '?action=text')
-      .then(r => r.json())
-      .catch(() => ({}));
-  }
-  return _textPromise;
-}
-
+// ── TEXT CONTENT ──
+// Fetches /content/site.json and fills all [data-text="key"] elements.
+// Falls back silently — the HTML already has default text.
 async function loadTextContent() {
-  const text = await _fetchText();
-  Object.entries(text).forEach(([key, value]) => {
-    if (!value) return;
-    document.querySelectorAll(`[data-text="${key}"]`).forEach(el => {
-      el.textContent = value;
-    });
-  });
-}
-
-async function loadPhotoByRef(key, folderId, imgId, phId, size) {
   try {
-    const refs = await _fetchRefs();
-    const fileName = refs[key];
-    if (!fileName) return;
-    const q = encodeURIComponent(`'${folderId}' in parents and name='${fileName}' and trashed=false`);
-    const { files } = await fetch(
-      `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink)&pageSize=1&key=${_DRIVE_API}`
-    ).then(r => r.json());
-    const thumb = files?.[0]?.thumbnailLink;
-    if (!thumb) return;
-    const img = document.getElementById(imgId);
-    if (!img) return;
-    img.src = thumb.replace(/=s\d+$/, '=s' + size);
-    img.style.display = 'block';
-    document.getElementById(phId)?.style.setProperty('display', 'none');
-  } catch(e) { console.error('Photo load failed:', key, e); }
+    const content = await fetch('/content/site.json').then(r => r.json());
+    Object.entries(content).forEach(([key, value]) => {
+      if (!value) return;
+      document.querySelectorAll(`[data-text="${key}"]`).forEach(el => {
+        el.textContent = value;
+      });
+    });
+  } catch (e) {
+    console.warn('Could not load site content:', e);
+  }
 }
 
-const form = document.getElementById('contact-form');
+// ── CONTACT FORM ──
+const form    = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
 
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
   const btn = form.querySelector('button[type="submit"]');
   btn.textContent = 'Sending…';
-  btn.disabled = true;
+  btn.disabled    = true;
 
-  fetch(APPS_SCRIPT_URL, {
+  fetch('/api/contact', {
     method: 'POST',
-    mode: 'no-cors',
-    body: new URLSearchParams(new FormData(form))
-  }).finally(() => {
-    form.style.display = 'none';
-    if (success) success.style.display = 'block';
-  });
+    body:   new FormData(form),
+  })
+    .then(r => r.json())
+    .catch(() => ({}))
+    .finally(() => {
+      form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    });
 });
 
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
+      entry.target.style.opacity   = '1';
       entry.target.style.transform = 'translateY(0)';
     }
   });
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.service-card, .testimonial-card, .gallery-item').forEach(el => {
-  el.style.opacity = '0';
+  el.style.opacity   = '0';
   el.style.transform = 'translateY(24px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);

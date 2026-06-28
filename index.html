@@ -13,7 +13,8 @@
   <!-- NAV -->
   <nav id="main-nav">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+      <img src="/images/uploads/logo.jpg" alt="Bridal Glam by Kaitlyn" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+      <span style="display:none;font-family:'Playfair Display',Georgia,serif;font-size:1rem;">Bridal Glam by Kaitlyn</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -43,9 +44,8 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-image">
-      <!-- Replace src with your photo: hero-photo.jpg -->
-      <div class="hero-image-placeholder" id="hero-photo-placeholder">Your hero photo here</div>
-      <img id="hero-photo-img" src="" alt="Kaitlyn Magnuson" style="display:none;width:100%;height:100%;object-fit:cover;" />
+      <div class="hero-image-placeholder" id="hero-photo-placeholder" style="display:none;">Your hero photo here</div>
+      <img src="/images/uploads/hero.jpg" alt="Kaitlyn Magnuson" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('hero-photo-placeholder').style.display='flex';" />
     </div>
     <div class="hero-content">
       <span class="eyebrow">Northern Colorado's Bridal Artist</span>
@@ -95,8 +95,8 @@
   <section class="about-strip">
     <div class="about-strip-inner">
       <div class="about-image">
-        <div class="about-image-placeholder" id="about-photo-placeholder">Photo of Kaitlyn</div>
-        <img id="about-photo-img" src="" alt="Kaitlyn Magnuson" style="display:none;width:100%;height:100%;object-fit:cover;" />
+        <div class="about-image-placeholder" id="about-photo-placeholder" style="display:none;">Photo of Kaitlyn</div>
+        <img src="/images/uploads/about-strip.jpg" alt="Kaitlyn Magnuson" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('about-photo-placeholder').style.display='flex';" />
         <div class="about-accent"></div>
       </div>
       <div class="about-content">
@@ -193,8 +193,8 @@
       <div class="testimonials-grid">
         <div class="testimonial-card">
           <div class="testimonial-stars">★★★★★</div>
-          <p data-text="testimonial_1_text">"Kaitlyn made me feel so beautiful on my wedding day. She listened to exactly what I wanted and delivered beyond my expectations. Highly recommend!"</p>
-          <span class="testimonial-author" data-text="testimonial_1_author">— Bridal Client</span>
+          <p data-text="testimonial_1_text">"Kaitlyn was my makeup artist for my wedding back in September, and I truly couldn’t have asked for a better experience. From start to finish, she was thoughtful, professional, and incredibly talented. Before the wedding, she did a thorough consultation where she asked all the right questions: my overall vision, the look I was hoping to achieve, my skin type and sensitivities, what makeup I normally wear, and anything I definitely didn’t want. She paid attention to every detail and even followed up with product suggestions and a plan that matched both my preferences and what would photograph beautifully. She picked out products that worked perfectly with my skin and helped bring my vision to life. On the day of the wedding, Kaitlyn arrived right on time and immediately created such a calm, positive atmosphere for me and my bridesmaids. She was organized with her schedule, made sure each girl had dedicated time, and never made anyone feel rushed. She checked in with me throughout the process, making sure I felt good, that nothing was irritating my skin, and that the final look was exactly what I wanted. My makeup held up flawlessly all day, and I genuinely felt like the best version of myself. Kaitlyn is not only incredibly skilled, but she truly cares about her brides and their experience. I would recommend her to anyone without hesitation. She helped make my wedding day feel seamless and special, and I’m so grateful we had her with us."</p>
+          <span class="testimonial-author" data-text="testimonial_1_author">— Ashley ~ Bride </span>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-stars">★★★★★</div>
@@ -221,7 +221,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+      <img src="/images/uploads/logo.jpg" alt="Bridal Glam by Kaitlyn" onerror="this.style.display='none'" />
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
@@ -246,37 +246,21 @@
 
   <script src="js/main.js"></script>
   <script>
-    const _ABOUTME = '14P6jz4Dkh1AahYhZRw62655lzQelnGNH';
-    loadPhotoByRef('home_hero',  _ABOUTME, 'hero-photo-img',  'hero-photo-placeholder',  1600);
-    loadPhotoByRef('home_strip', _ABOUTME, 'about-photo-img', 'about-photo-placeholder', 1200);
     loadTextContent();
 
-    // Load Recent Work preview photos from the Photo References sheet
-    // Add rows with keys home_gallery_1 … home_gallery_5 to control which photos appear here
+    // Load home gallery preview from local gallery.json
     (async () => {
       try {
-        const API_KEY = 'AIzaSyAiC_UjUdzU52KA888sUhteJHJemBZGqUU';
-        const refs = await _fetchRefs();
-        for (let i = 0; i < 5; i++) {
-          const fileName = refs[`home_gallery_${i + 1}`];
-          if (!fileName) continue;
-          const q = encodeURIComponent(`name='${fileName}' and trashed=false`);
-          const { files } = await fetch(
-            `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(thumbnailLink)&pageSize=1&key=${API_KEY}`
-          ).then(r => r.json());
-          const thumb = files?.[0]?.thumbnailLink;
-          if (!thumb) continue;
+        const photos = await fetch('/content/gallery.json').then(r => r.json());
+        photos.slice(0, 5).forEach((photo, i) => {
           const item = document.getElementById(`home-gal-${i}`);
-          if (!item) continue;
-          item.dataset.src = thumb.replace(/=s\d+$/, '=s1600');
+          if (!item) return;
+          const src = `/images/gallery/${photo.file}`;
+          item.dataset.src = src;
           const img = item.querySelector('img');
-          if (img) {
-            img.src = thumb.replace(/=s\d+$/, '=s800');
-            img.alt = fileName;
-            img.style.display = 'block';
-          }
+          if (img) { img.src = src; img.alt = 'Gallery photo'; img.style.display = 'block'; }
           item.querySelector('.gallery-placeholder')?.style.setProperty('display', 'none');
-        }
+        });
       } catch(e) { console.error('Home gallery preview load failed', e); }
     })();
   </script>

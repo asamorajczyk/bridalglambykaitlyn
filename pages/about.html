@@ -143,7 +143,8 @@
 
   <nav id="main-nav">
     <a href="../index.html" class="nav-logo">
-      <img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" />
+      <img src="/images/uploads/logo.jpg" alt="Bridal Glam by Kaitlyn" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+      <span style="display:none;font-family:'Playfair Display',Georgia,serif;font-size:1rem;">Bridal Glam by Kaitlyn</span>
     </a>
     <ul class="nav-links">
       <li><a href="../index.html">Home</a></li>
@@ -173,8 +174,8 @@
   <div class="about-main">
     <div class="about-main-image">
       <div class="about-photo">
-        <img id="about-photo-img" src="" alt="Kaitlyn Magnuson" style="display:none;" />
-        <div class="about-photo-placeholder" id="about-photo-placeholder">Photo of Kaitlyn</div>
+        <div class="about-photo-placeholder" id="about-photo-placeholder" style="display:none;">Photo of Kaitlyn</div>
+        <img src="/images/uploads/about-portrait.jpg" alt="Kaitlyn Magnuson" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.getElementById('about-photo-placeholder').style.display='flex';" />
       </div>
       <blockquote class="about-quote">
         <span data-text="about_quote">"I'm so happy you're here. Feel free to reach out with any questions."</span>
@@ -235,7 +236,7 @@
   </section>
 
   <footer>
-    <div class="footer-logo"><img src="../images/logo2.png" alt="Bridal Glam by Kaitlyn" /></div>
+    <div class="footer-logo"><img src="/images/uploads/logo.jpg" alt="Bridal Glam by Kaitlyn" onerror="this.style.display='none'" /></div>
     <ul class="footer-links">
       <li><a href="../index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
@@ -253,9 +254,6 @@
   </footer>
 
   <script src="../js/main.js"></script>
-  <script>
-    loadPhotoByRef('about_portrait', '14P6jz4Dkh1AahYhZRw62655lzQelnGNH', 'about-photo-img', 'about-photo-placeholder', 1200);
-    loadTextContent();
-  </script>
+  <script>loadTextContent();</script>
 </body>
 </html>
