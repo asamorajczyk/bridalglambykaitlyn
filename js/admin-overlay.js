@@ -82,17 +82,27 @@
         list.innerHTML = '<p class="ao-dim">No inquiries yet.</p>';
         return;
       }
+      const SERVICE_LABELS = {
+        'bridal-full':   'Bridal Hair + Makeup (Full Package)',
+        'bridal-hair':   'Bridal Hair Only',
+        'bridal-makeup': 'Bridal Makeup Only',
+        'bridal-party':  'Bridal Party (Group)',
+        'prom':          'Prom / Formal Event',
+        'special':       'Special Occasion',
+        'other':         'Other / Not Sure Yet',
+      };
+      const row = (label, val) => val
+        ? `<div class="ao-inq-row"><span class="ao-inq-label">${label}</span><span class="ao-inq-val">${esc(val)}</span></div>`
+        : '';
       list.innerHTML = inquiries.map(inq => `
         <div class="ao-inq-card">
           <div class="ao-inq-name">${esc(inq.name)}</div>
-          <div class="ao-inq-meta">
-            ${[inq.service, inq.eventDate].filter(Boolean).map(esc).join(' · ')}
-          </div>
-          <div class="ao-inq-contact">
-            ${[inq.email, inq.phone].filter(Boolean).map(esc).join(' · ')}
-          </div>
-          ${inq.location ? `<div class="ao-inq-meta">${esc(inq.location)}</div>` : ''}
-          ${inq.message  ? `<div class="ao-inq-msg">${esc(inq.message)}</div>` : ''}
+          ${row('Email',      inq.email)}
+          ${row('Phone',      inq.phone)}
+          ${row('Event Date', inq.eventDate)}
+          ${row('Service',    SERVICE_LABELS[inq.service] || inq.service)}
+          ${row('Location',   inq.location)}
+          ${inq.message ? `<div class="ao-inq-row ao-inq-row--msg"><span class="ao-inq-label">Message</span><span class="ao-inq-val">${esc(inq.message)}</span></div>` : ''}
           <div class="ao-inq-date">Submitted ${fmtDate(inq.submitted)}</div>
         </div>
       `).join('');
@@ -239,10 +249,18 @@
         if (!res.ok || !data.success) throw new Error(data.error || 'Upload failed');
 
         const previewURL = URL.createObjectURL(file);
+        // Update all matching images on page and reveal any that were hidden
         document.querySelectorAll(`img[src*="/images/uploads/${photoModalSlot}"]`).forEach(img => {
           img.src = previewURL;
+          img.style.display = '';
+        });
+        // Hide any placeholder divs for this slot
+        document.querySelectorAll('[id$="-ph"], [id$="-placeholder"]').forEach(ph => {
+          const sib = ph.parentElement?.querySelector(`img[src*="/images/uploads/${photoModalSlot}"]`);
+          if (sib) ph.style.display = 'none';
         });
         document.getElementById('ao-photo-preview').src = previewURL;
+        document.getElementById('ao-photo-preview').style.display = '';
         photoModalStatus.textContent = '✓ Uploaded — live on site in ~30 seconds';
         btn.textContent = 'Choose Different Photo';
       } catch (e) {
@@ -255,6 +273,7 @@
   }
 
   function wirePhotos() {
+    // Wire clickable upload images
     document.querySelectorAll('img').forEach(img => {
       const src   = img.getAttribute('src') || '';
       const match = src.match(/\/images\/uploads\/([^/.]+)/);
@@ -264,16 +283,39 @@
       img.addEventListener('click', e => {
         e.preventDefault();
         e.stopPropagation();
-        photoModalSlot = slot;
-        document.getElementById('ao-photo-label').textContent =
-          'Swap Photo — ' + slot.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        document.getElementById('ao-photo-preview').src = img.src;
-        photoModalStatus.textContent = '';
-        document.getElementById('ao-photo-choose').textContent = 'Choose New Photo';
-        document.getElementById('ao-photo-choose').disabled    = false;
-        photoModal.classList.add('open');
+        openPhotoModal(img.src, slot);
       });
     });
+
+    // Wire placeholder divs for empty/missing photo slots
+    // Finds sibling img to determine slot, so it works on any page
+    document.querySelectorAll('[id$="-ph"], [id$="-placeholder"]').forEach(ph => {
+      const sibling = ph.parentElement?.querySelector('img[src*="/images/uploads/"]');
+      if (!sibling) return;
+      const match = (sibling.getAttribute('src') || '').match(/\/images\/uploads\/([^/.]+)/);
+      if (!match) return;
+      const slot = match[1];
+      ph.classList.add('ao-photo-placeholder-editable');
+      ph.addEventListener('click', e => {
+        e.stopPropagation();
+        openPhotoModal('', slot);
+      });
+    });
+  }
+
+  function openPhotoModal(currentSrc, slot) {
+    photoModalSlot = slot;
+    document.getElementById('ao-photo-label').textContent =
+      (currentSrc ? 'Swap' : 'Add') + ' Photo — ' +
+      slot.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    const preview = document.getElementById('ao-photo-preview');
+    preview.src = currentSrc || '';
+    preview.style.display = currentSrc ? '' : 'none';
+    photoModalStatus.textContent = '';
+    document.getElementById('ao-photo-choose').textContent =
+      currentSrc ? 'Choose New Photo' : 'Add Photo';
+    document.getElementById('ao-photo-choose').disabled = false;
+    photoModal.classList.add('open');
   }
 
   // ── UTILS ────────────────────────────────────────────────────────────────
