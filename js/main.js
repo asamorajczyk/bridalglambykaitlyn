@@ -81,6 +81,13 @@ form?.addEventListener('submit', (e) => {
     });
 });
 
+// ── ADMIN OVERLAY ──
+if (sessionStorage.getItem('adminMode')) {
+  const s = document.createElement('script');
+  s.src = '/js/admin-overlay.js';
+  document.body.appendChild(s);
+}
+
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {

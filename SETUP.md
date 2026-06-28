@@ -104,17 +104,50 @@ Add these to **both** Production and Preview environments.
 
 This is the login that protects Kaitlyn's admin area so only she can access it.
 
-1. In Cloudflare dashboard → **Zero Trust** → Access → Applications → Add an Application
-2. Choose **Self-hosted**
-3. Application name: `Bridal Glam Admin`
-4. Application domain: `bridalglambykaitlyn.com` — path: `/admin`
-5. Under **Policies**: Add policy → name it "Kaitlyn" → Action: Allow
-   - Include: Emails → enter `bridalbykaitlyn@outlook.com`
-6. Save
+Do this **three times** — once for each path below:
+- `/admin`
+- `/api/admin`
+- `/api/inquiries`
 
-Repeat the same steps for these two additional paths:
-- `/api/admin` (protects content editing API)
-- `/api/inquiries` (protects the inquiry list API)
+### Steps for each application
+
+**In Cloudflare dashboard → Zero Trust → Access → Applications → Add an Application → Self-hosted**
+
+#### Page 1 — Application Configuration
+| Field | Value |
+|-------|-------|
+| Application name | `Bridal Glam Admin` (use `Bridal Glam API Admin` and `Bridal Glam API Inquiries` for the other two) |
+| Session Duration | `24 hours` (or leave default) |
+| Subdomain | *(leave blank)* |
+| Domain | `bridalglambykaitlyn.pages.dev` *(use `bridalglambykaitlyn.com` once the custom domain is connected — see Step 6)* |
+| Path | `/admin` (then `/api/admin`, then `/api/inquiries` for the other two) |
+
+Leave everything else on this page at its default. Click **Next**.
+
+#### Page 2 — Policies
+1. Click **Add a policy**
+2. Fill in:
+   | Field | Value |
+   |-------|-------|
+   | Policy name | `Kaitlyn` |
+   | Action | `Allow` |
+3. Under **Configure rules → Include**, click **Add require** (or the `+` next to Include)
+4. In the selector dropdown, choose **Emails**
+5. In the value field, enter `bridalbykaitlyn@outlook.com`
+6. Click **Save policy**
+
+Click **Next**.
+
+#### Page 3 — Setup (Authentication)
+No changes needed here. Cloudflare One-Time PIN (email code) is enabled by default — that's all Kaitlyn needs.
+
+Click **Next** → **Add application**.
+
+---
+
+Repeat all steps above for the other two paths (`/api/admin` and `/api/inquiries`).
+
+---
 
 **How Kaitlyn logs in:**
 - She goes to `bridalglambykaitlyn.com/admin`
